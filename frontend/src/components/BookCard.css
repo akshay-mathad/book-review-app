@@ -1,0 +1,44 @@
+.book-card {
+    display: flex; /* Use flexbox for layout */
+    align-items: flex-start; /* Align items to the top */
+    margin: 10px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    max-width: 300px; /* Set a max width for book items */
+    height: 400px; /* Set a fixed height for uniformity */
+    text-align: left; /* Align text to the left */
+    background-color: #fff; /* White background for card */
+    transition: box-shadow 0.3s; /* Smooth shadow transition */
+    overflow: hidden; /* Hide overflow content */
+}
+
+.book-card:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow on hover */
+}
+
+.book-info {
+    flex: 1; /* Allow info section to grow */
+    margin-right: 10px; /* Space between text and image */
+    display: flex;
+    flex-direction: column; /* Stack text vertically */
+    justify-content: space-between; /* Space out elements */
+}
+
+.book-cover {
+    width: 100px; /* Set a fixed width for the image */
+    height: 150px; /* Set a fixed height for the image */
+    object-fit: cover; /* Cover the area without distortion */
+}
+
+.view-details {
+    display: block; /* Make the link a block element */
+    margin-top: auto; /* Push to the bottom of the card */
+    text-align: center; /* Center the link */
+    color: #007BFF; /* Link color */
+    text-decoration: none; /* Remove underline */
+}
+
+.view-details:hover {
+    text-decoration: underline; /* Underline on hover */
+} 

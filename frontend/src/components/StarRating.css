@@ -1,0 +1,14 @@
+.star-rating {
+    display: flex;
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.star {
+    font-size: 30px; /* Size of the stars */
+    color: #ccc; /* Default star color */
+    transition: color 0.2s; /* Smooth color transition */
+}
+
+.star.filled {
+    color: gold; /* Color for filled stars */
+} 

@@ -1,0 +1,137 @@
+.home {
+    padding: 20px;
+}
+
+.featured-header {
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.search-controls {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.search-form {
+    display: flex;
+}
+
+.search-form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+    flex: 1; /* Allow input to grow */
+}
+
+.search-form button {
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.book-list {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap */
+    justify-content: center; /* Center items */
+}
+
+.book-item {
+    display: flex; /* Use flexbox for layout */
+    align-items: center; /* Center items vertically */
+    margin: 10px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    max-width: 400px; /* Set a max width for book items */
+    text-align: left; /* Align text to the left */
+}
+
+.book-info {
+    flex: 1; /* Allow info section to grow */
+    margin-right: 10px; /* Space between text and image */
+}
+
+.book-cover {
+    width: 100px; /* Set a fixed width for the image */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.view-details {
+    display: block; /* Make the link a block element */
+    margin-top: 10px; /* Space above the link */
+    text-align: center; /* Center the link */
+    color: #007BFF; /* Link color */
+    text-decoration: none; /* Remove underline */
+}
+
+.view-details:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    margin: 0 10px;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.pagination button:disabled {
+    background-color: #ccc; /* Disabled button style */
+    cursor: not-allowed; /* Not allowed cursor */
+}
+
+.reset-button {
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px; /* Space between the button and search form */
+}
+
+.reset-button:hover {
+    background-color: #555; /* Darker on hover */
+}
+
+.featured-header:hover {
+    color: #555; /* Darker color on hover */
+}
+
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0; /* Space above and below the controls */
+}
+
+.pagination-controls input {
+    width: 60px; /* Set a fixed width for the input */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px; /* Space between input and button */
+}
+
+.pagination-controls button {
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+} 
