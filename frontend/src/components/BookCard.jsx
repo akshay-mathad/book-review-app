@@ -1,5 +1,5 @@
 import React from "react";
-import "./BookCard.css"; // Import styles for the book card
+import "../styles/BookCard.css"; // Import styles for the book card
 
 const BookCard = ({ book }) => {
   return (

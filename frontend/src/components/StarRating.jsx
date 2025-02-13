@@ -1,5 +1,5 @@
 import React from 'react';
-import './StarRating.css'; // Import CSS for styling
+import '../styles/StarRating.css'; // Import CSS for styling
 
 const StarRating = ({ rating, onRatingChange }) => {
     const stars = [1, 2, 3, 4, 5]; // Array for 5 stars

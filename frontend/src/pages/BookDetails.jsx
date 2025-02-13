@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import StarRating from "../components/StarRating"; // Import StarRating component
-import "./BookDetails.css"; // Import specific styles for BookDetails
+import "../styles/BookDetails.css"; // Import specific styles for BookDetails
 
 const BookDetails = () => {
   const { id } = useParams(); // Assuming the id is the Google Books ID

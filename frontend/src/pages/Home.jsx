@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import LoadingSpinner from '../components/LoadingSpinner'; // Import LoadingSpinner
 import BookCard from '../components/BookCard'; // Import the BookCard component
-import './Home.css'; // Import custom styles for Home
+import '../styles/Home.css'; // Import custom styles for Home
 
 const Home = () => {
     const [books, setBooks] = useState([]);
