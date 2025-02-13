@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <g fill="#61DAFB">
+    <!-- Book Icon -->
+    <path d="M50 30 L150 30 L160 40 L160 170 L50 170 Z" fill="#fff" stroke="#333" stroke-width="2"/>
+    <path d="M50 30 L50 170 L40 160 L40 40 Z" fill="#f4f4f4" stroke="#333" stroke-width="2"/>
+    
+    <!-- Star Icon -->
+    <polygon points="100,10 110,40 140,40 115,60 125,90 100,70 75,90 85,60 60,40 90,40" fill="gold"/>
+  </g>
+  <text x="50%" y="190" font-family="Arial" font-size="20" fill="#333" text-anchor="middle">Book Review</text>
+</svg>
+
+
