@@ -34,7 +34,7 @@ const BookDetails = () => {
   const fetchReviews = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/reviews/${id}`
+        `${process.env.REACT_APP_API_URI}/reviews/${id}`
       );
       setReviews(response.data);
     } catch (error) {
@@ -50,7 +50,7 @@ const BookDetails = () => {
     e.preventDefault();
     const token = localStorage.getItem("token");
     await axios.post(
-      "http://localhost:5000/api/reviews",
+      `${process.env.REACT_APP_API_URI}/reviews`,
       { bookId: id, rating, content },
       {
         headers: { Authorization: `Bearer ${token}` },

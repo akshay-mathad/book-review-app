@@ -11,7 +11,7 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+            const response = await axios.post(`${process.env.REACT_APP_API_URI}/auth/login`, { email, password });
             console.log('Login successful:', response.data);
             localStorage.setItem('token', response.data.token); // Store the token
             setErrorMessage('');
