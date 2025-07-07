@@ -34,7 +34,6 @@ The Book Review Platform is a full-stack web application that allows users to br
   - React
   - React Router
   - Axios
-  - Redux or React Context
   - CSS for styling
 
 - **Backend**: 
@@ -85,7 +84,7 @@ The Book Review Platform is a full-stack web application that allows users to br
    ```
 
 ### Usage
-- Visit `http://localhost:3000` in your browser to access the application.
+- Visit `https://book-review-app-rho.vercel.app/` in your browser to access the application.
 - Use the navigation links to browse books, view details, and manage your profile.
 
 
