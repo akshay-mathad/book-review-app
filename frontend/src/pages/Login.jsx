@@ -1,40 +1,87 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState('');
+    const [messageType, setMessageType] = useState(''); // 'error' or 'success'
+    
     const navigate = useNavigate();
+    const { login, isAuthenticated } = useAuth();
+
+    // Redirect if already authenticated
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate('/profile');
+        }
+    }, [isAuthenticated, navigate]);
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        try {
-            const response = await axios.post(`${process.env.REACT_APP_API_URI}/auth/login`, { email, password });
-            console.log('Login successful:', response.data);
-            localStorage.setItem('token', response.data.token); // Store the token
-            setErrorMessage('');
-            navigate('/profile'); // Redirect to profile page after successful login
-        } catch (error) {
-            console.error('Login failed:', error);
-            if (error.response) {
-                setErrorMessage(error.response.data.message); // Set error message from response
-            } else {
-                setErrorMessage('An error occurred. Please try again.'); // Generic error message
-            }
+        setLoading(true);
+        setMessage('');
+
+        // Basic validation
+        if (!email || !password) {
+            setMessage('Please fill in all fields');
+            setMessageType('error');
+            setLoading(false);
+            return;
         }
+
+        const result = await login(email, password);
+        
+        if (result.success) {
+            setMessage('Login successful! Redirecting...');
+            setMessageType('success');
+            // Navigation will happen automatically due to useEffect
+            setTimeout(() => navigate('/profile'), 1000);
+        } else {
+            setMessage(result.message);
+            setMessageType('error');
+        }
+        
+        setLoading(false);
     };
 
     return (
         <div className="login">
-            <h1>Login</h1>
-            {errorMessage && <p className="error">{errorMessage}</p>} {/* Display error message */}
+            <h1>Login to Your Account</h1>
+            
+            {message && (
+                <div className={messageType === 'error' ? 'error' : 'success'}>
+                    {message}
+                </div>
+            )}
+            
             <form onSubmit={handleLogin}>
-                <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                <button type="submit">Login</button>
+                <input 
+                    type="email" 
+                    placeholder="Email" 
+                    value={email} 
+                    onChange={(e) => setEmail(e.target.value)} 
+                    required 
+                    disabled={loading}
+                />
+                <input 
+                    type="password" 
+                    placeholder="Password" 
+                    value={password} 
+                    onChange={(e) => setPassword(e.target.value)} 
+                    required 
+                    disabled={loading}
+                />
+                <button type="submit" disabled={loading}>
+                    {loading ? 'Logging in...' : 'Login'}
+                </button>
             </form>
+            
+            <p style={{ textAlign: 'center', marginTop: '1rem' }}>
+                Don't have an account? <Link to="/signup">Sign up here</Link>
+            </p>
         </div>
     );
 };

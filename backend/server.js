@@ -15,6 +15,8 @@ const app = express();
 app.use(cors({
     origin: process.env.FRONTEND_URL, // Use the environment variable for the frontend URL
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
 app.use(passport.initialize());

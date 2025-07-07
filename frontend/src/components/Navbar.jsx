@@ -1,23 +1,57 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 const Navbar = () => {
     const navigate = useNavigate();
+    const { isAuthenticated, user, logout, loading } = useAuth();
 
     const handleLogout = () => {
-        localStorage.removeItem('token'); // Clear the token
-        navigate('/login'); // Redirect to login page
+        logout();
+        navigate('/');
     };
+
+    if (loading) {
+        return (
+            <nav>
+                <div className="nav-container">
+                    <Link to="/" className="nav-brand">Book Reviews</Link>
+                    <div className="nav-loading">Loading...</div>
+                </div>
+            </nav>
+        );
+    }
 
     return (
         <nav>
-            <ul>
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/login">Login</Link></li>
-                <li><Link to="/signup">Sign Up</Link></li>
-                <li><Link to="/profile">Profile</Link></li>
-                <li><button onClick={handleLogout}>Logout</button></li> {/* Logout button */}
-            </ul>
+            <div className="nav-container">
+                <Link to="/" className="nav-brand">Book Reviews</Link>
+                <ul className="nav-links">
+                    <li><Link to="/">Home</Link></li>
+                    {!isAuthenticated ? (
+                        <>
+                            <li><Link to="/login">Login</Link></li>
+                            <li><Link to="/signup">Sign Up</Link></li>
+                        </>
+                    ) : (
+                        <>
+                            <li><Link to="/profile">Profile</Link></li>
+                            <li>
+                                <span className="user-welcome">Welcome, {user?.username || 'User'}!</span>
+                            </li>
+                            <li>
+                                <button 
+                                    onClick={handleLogout} 
+                                    className="logout-btn"
+                                    title="Logout"
+                                >
+                                    Logout
+                                </button>
+                            </li>
+                        </>
+                    )}
+                </ul>
+            </div>
         </nav>
     );
 };

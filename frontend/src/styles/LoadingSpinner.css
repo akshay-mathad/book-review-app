@@ -7,10 +7,10 @@
 
 .spinner {
     border: 4px solid rgba(0, 0, 0, 0.1);
-    border-left-color: #333; /* Spinner color */
+    border-left-color: #007BFF; /* Bright blue for spinner */
     border-radius: 50%;
-    width: 30px; /* Size of the spinner */
-    height: 30px; /* Size of the spinner */
+    width: 40px; /* Increased size of the spinner */
+    height: 40px; /* Increased size of the spinner */
     animation: spin 1s linear infinite; /* Spin animation */
 }
 

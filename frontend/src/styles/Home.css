@@ -6,6 +6,8 @@
     text-align: center;
     cursor: pointer;
     margin-bottom: 20px;
+    color: #007BFF; /* Bright blue for header */
+    font-size: 2em; /* Larger font size for emphasis */
 }
 
 .search-controls {
@@ -28,7 +30,7 @@
 
 .search-form button {
     padding: 10px;
-    background-color: #333;
+    background-color: #007BFF; /* Bright blue */
     color: white;
     border: none;
     border-radius: 5px;
@@ -44,12 +46,13 @@
 .book-item {
     display: flex; /* Use flexbox for layout */
     align-items: center; /* Center items vertically */
-    margin: 10px;
-    padding: 15px;
+    margin: 15px; /* Increased margin for spacing */
+    padding: 20px; /* Increased padding for better look */
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 10px; /* Rounded corners */
     max-width: 400px; /* Set a max width for book items */
     text-align: left; /* Align text to the left */
+    background-color: #F8F9FA; /* Light gray background */
 }
 
 .book-info {
@@ -83,7 +86,7 @@
 .pagination button {
     margin: 0 10px;
     padding: 10px;
-    background-color: #333;
+    background-color: #007BFF; /* Bright blue */
     color: white;
     border: none;
     border-radius: 5px;
@@ -129,7 +132,7 @@
 
 .pagination-controls button {
     padding: 10px;
-    background-color: #333;
+    background-color: #007BFF; /* Bright blue */
     color: white;
     border: none;
     border-radius: 5px;

@@ -1,59 +1,138 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
+import { useAuth } from '../contexts/AuthContext';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const Profile = () => {
-    const [user, setUser] = useState(null);
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
+    const { user, updateProfile, loading: authLoading } = useAuth();
+    const [username, setUsername] = useState(user?.username || '');
+    const [email, setEmail] = useState(user?.email || '');
+    const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState('');
+    const [messageType, setMessageType] = useState(''); // 'error' or 'success'
 
-    useEffect(() => {
-        const fetchUserProfile = async () => {
-            try {
-                const token = localStorage.getItem('token');
-                const response = await axios.get(`${process.env.REACT_APP_API_URI}/auth/profile`, {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
-                setUser(response.data);
-                setUsername(response.data.username);
-                setEmail(response.data.email);
-            } catch (error) {
-                console.error('Error fetching user profile:', error);
-                if (error.response) {
-                    setErrorMessage(error.response.data.message);
-                } else {
-                    setErrorMessage('An error occurred. Please try again.');
-                }
-            }
-        };
+    // Update form when user data changes
+    React.useEffect(() => {
+        if (user) {
+            setUsername(user.username || '');
+            setEmail(user.email || '');
+        }
+    }, [user]);
 
-        fetchUserProfile();
-    }, []);
+    const validateForm = () => {
+        if (!username || !email) {
+            setMessage('Please fill in all fields');
+            setMessageType('error');
+            return false;
+        }
+
+        if (username.length < 3) {
+            setMessage('Username must be at least 3 characters long');
+            setMessageType('error');
+            return false;
+        }
+
+        return true;
+    };
 
     const handleUpdateProfile = async (e) => {
         e.preventDefault();
-        try {
-            const token = localStorage.getItem('token');
-            const response = await axios.put(`${process.env.REACT_APP_API_URI}/auth/profile`, { username, email }, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            setUser(response.data);
-            alert('Profile updated successfully');
-        } catch (error) {
-            console.error('Error updating profile:', error);
+        setMessage('');
+
+        if (!validateForm()) {
+            return;
         }
+
+        setLoading(true);
+
+        const result = await updateProfile({ username, email });
+        
+        setMessage(result.message);
+        setMessageType(result.success ? 'success' : 'error');
+        setLoading(false);
     };
 
-    if (!user) return <div>Loading...</div>;
+    const handleReset = () => {
+        setUsername(user?.username || '');
+        setEmail(user?.email || '');
+        setMessage('');
+    };
+
+    if (authLoading || !user) {
+        return (
+            <div style={{ 
+                display: 'flex', 
+                justifyContent: 'center', 
+                alignItems: 'center', 
+                height: '50vh' 
+            }}>
+                <LoadingSpinner />
+            </div>
+        );
+    }
 
     return (
         <div className="profile">
             <h1>User Profile</h1>
-            {errorMessage && <p className="error">{errorMessage}</p>}
+            
+            <div style={{ 
+                background: '#f8f9fa', 
+                padding: '1rem', 
+                borderRadius: '8px', 
+                marginBottom: '2rem',
+                border: '1px solid #dee2e6'
+            }}>
+                <h3>Account Information</h3>
+                <p><strong>User ID:</strong> {user._id}</p>
+                <p><strong>Account Created:</strong> {new Date(user.createdAt || Date.now()).toLocaleDateString()}</p>
+            </div>
+
+            {message && (
+                <div className={messageType === 'error' ? 'error' : 'success'}>
+                    {message}
+                </div>
+            )}
+            
             <form onSubmit={handleUpdateProfile}>
-                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                <button type="submit">Update Profile</button>
+                <div>
+                    <label htmlFor="username">Username:</label>
+                    <input 
+                        id="username"
+                        type="text" 
+                        placeholder="Username"
+                        value={username} 
+                        onChange={(e) => setUsername(e.target.value)} 
+                        required 
+                        disabled={loading}
+                        minLength={3}
+                    />
+                </div>
+                
+                <div>
+                    <label htmlFor="email">Email:</label>
+                    <input 
+                        id="email"
+                        type="email" 
+                        placeholder="Email"
+                        value={email} 
+                        onChange={(e) => setEmail(e.target.value)} 
+                        required 
+                        disabled={loading}
+                    />
+                </div>
+                
+                <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
+                    <button type="submit" disabled={loading}>
+                        {loading ? 'Updating...' : 'Update Profile'}
+                    </button>
+                    <button 
+                        type="button" 
+                        onClick={handleReset}
+                        disabled={loading}
+                        style={{ backgroundColor: '#6c757d' }}
+                    >
+                        Reset
+                    </button>
+                </div>
             </form>
         </div>
     );
